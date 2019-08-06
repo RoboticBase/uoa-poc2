@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: robot-controller
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: robot-controller
+  template:
+    metadata:
+      labels:
+        app: robot-controller
+    spec:
+      containers:
+      - name: robot-controller
+        image: ${REPOSITORY}/roboticbase/uoa-poc2-controller:0.1.0
+        imagePullPolicy: Always
+        env:
+        - name: LOG_LEVEL
+          value: "DEBUG"
+        - name: LISTEN_PORT
+          value: "3000"
+        - name: TIMEZONE
+          value: "Asia/Tokyo"
+        - name: ORION_ENDPOINT
+          value: "http://orion:1026"
+        - name: FIWARE_SERVICE
+          value: "${FIWARE_SERVICE}"
+        - name: DELIVERY_ROBOT_SERVICEPATH
+          value: "${DELIVERY_ROBOT_SERVICEPATH}"
+        - name: DELIVERY_ROBOT_TYPE
+          value: "${DELIVERY_ROBOT_TYPE}"
+        - name: DELIVERY_ROBOT_01
+          value: "${DELIVERY_ROBOT_01}"
+        ports:
+          - name: r-controller
+            containerPort: 3000

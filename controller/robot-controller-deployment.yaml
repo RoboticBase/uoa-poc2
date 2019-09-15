@@ -33,6 +33,8 @@ spec:
           value: "${DELIVERY_ROBOT_TYPE}"
         - name: DELIVERY_ROBOT_01
           value: "${DELIVERY_ROBOT_01}"
+        - name: CORS_ORIGINS
+          value: "*"
         ports:
           - name: r-controller
             containerPort: 3000

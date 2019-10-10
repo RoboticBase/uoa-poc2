@@ -31,8 +31,14 @@ spec:
           value: "${DELIVERY_ROBOT_SERVICEPATH}"
         - name: DELIVERY_ROBOT_TYPE
           value: "${DELIVERY_ROBOT_TYPE}"
-        - name: DELIVERY_ROBOT_01
-          value: "${DELIVERY_ROBOT_01}"
+        - name: DELIVERY_ROBOT_LIST
+          value: '["${DELIVERY_ROBOT_02}", "${DELIVERY_ROBOT_01}"]'
+        - name: ROBOT_UI_SERVICEPATH
+          value: "${ROBOT_UI_SERVICEPATH}"
+        - name: ROBOT_UI_TYPE
+          value: "${ROBOT_UI_TYPE}"
+        - name: ID_TABLE
+          value: '{"${DELIVERY_ROBOT_01}":"${ROBOT_UI_01}","${DELIVERY_ROBOT_02}":"${ROBOT_UI_02}"}'
         - name: CORS_ORIGINS
           value: "*"
         ports:

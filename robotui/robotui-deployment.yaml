@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: robotui
-        image: ${REPOSITORY}/roboticbase/uoa-poc2-robotui:0.1.0
+        image: ${REPOSITORY}/roboticbase/uoa-poc2-robotui:0.1.1
         imagePullPolicy: Always
         ports:
           - name: robotui

@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: robot-controller
-        image: ${REPOSITORY}/roboticbase/uoa-poc2-controller:0.1.0
+        image: ${REPOSITORY}/roboticbase/uoa-poc2-controller:0.1.1
         imagePullPolicy: Always
         env:
         - name: LOG_LEVEL
-          value: "DEBUG"
+          value: "INFO"
         - name: LISTEN_PORT
           value: "3000"
         - name: TIMEZONE
@@ -50,15 +50,15 @@ spec:
         - name: ETCD_PORT
           value: "2379"
         - name: ETCD_LOCK_TTL_SEC
-          value: "60"
+          value: "5"
         - name: SHIPMENTAPI_LOCK_TIMEOUT_SEC
           value: "10"
         - name: MOVENEXTAPI_LOCK_TIMEOUT_SEC
           value: "10"
         - name: MOVENEXT_WAIT_MSEC
-          value: "200"
+          value: "100"
         - name: MOVENEXT_WAIT_MAX_NUM
-          value: "25"
+          value: "50"
         - name: NOTIFICATION_THROTTLING_MSEC
           value: "500"
         ports:

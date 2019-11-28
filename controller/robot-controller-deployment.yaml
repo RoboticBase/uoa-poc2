@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: robot-controller
-        image: ${REPOSITORY}/roboticbase/uoa-poc2-controller:0.1.1
+        image: ${REPOSITORY}/roboticbase/uoa-poc2-controller:0.1.2
         imagePullPolicy: Always
         env:
         - name: LOG_LEVEL
@@ -33,6 +33,7 @@ spec:
           value: "${DELIVERY_ROBOT_TYPE}"
         - name: DELIVERY_ROBOT_LIST
           value: '["${DELIVERY_ROBOT_02}", "${DELIVERY_ROBOT_01}"]'
+          # value: '["${DELIVERY_ROBOT_01}", "${DELIVERY_ROBOT_02}"]'
         - name: ROBOT_UI_SERVICEPATH
           value: "${ROBOT_UI_SERVICEPATH}"
         - name: ROBOT_UI_TYPE
@@ -45,22 +46,22 @@ spec:
           value: "${TOKEN_SERVICEPATH}"
         - name: TOKEN_TYPE
           value: "${TOKEN_TYPE}"
-        - name: ETCD_HOST
-          value: "etcd-cluster-client"
-        - name: ETCD_PORT
-          value: "2379"
-        - name: ETCD_LOCK_TTL_SEC
-          value: "5"
-        - name: SHIPMENTAPI_LOCK_TIMEOUT_SEC
-          value: "10"
-        - name: MOVENEXTAPI_LOCK_TIMEOUT_SEC
-          value: "10"
         - name: MOVENEXT_WAIT_MSEC
           value: "100"
         - name: MOVENEXT_WAIT_MAX_NUM
           value: "50"
         - name: NOTIFICATION_THROTTLING_MSEC
-          value: "500"
+          value: "250"
+        - name: MONGODB_HOST
+          value: "mongodb-client"
+        - name: MONGODB_PORT
+          value: "27017"
+        - name: MONGODB_REPLICASET
+          value: "rs0"
+        - name: MONGODB_DB_NAME
+          value: "robot_controller"
+        - name: MONGODB_COLLECTION_NAME
+          value: "delivery_robot_lock"
         ports:
           - name: r-controller
             containerPort: 3000

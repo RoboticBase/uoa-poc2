@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: robotui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: robotui
+  template:
+    metadata:
+      labels:
+        app: robotui
+    spec:
+      containers:
+      - name: robotui
+        image: ${REPOSITORY}/roboticbase/uoa-poc2-robotui:0.1.1
+        imagePullPolicy: Always
+        ports:
+          - name: robotui
+            containerPort: 80

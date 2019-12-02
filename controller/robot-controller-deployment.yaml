@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: robot-controller
-        image: ${REPOSITORY}/roboticbase/uoa-poc2-controller:0.1.0
+        image: ${REPOSITORY}/roboticbase/uoa-poc2-controller:0.1.3
         imagePullPolicy: Always
         env:
         - name: LOG_LEVEL
-          value: "DEBUG"
+          value: "INFO"
         - name: LISTEN_PORT
           value: "3000"
         - name: TIMEZONE
@@ -31,10 +31,37 @@ spec:
           value: "${DELIVERY_ROBOT_SERVICEPATH}"
         - name: DELIVERY_ROBOT_TYPE
           value: "${DELIVERY_ROBOT_TYPE}"
-        - name: DELIVERY_ROBOT_01
-          value: "${DELIVERY_ROBOT_01}"
+        - name: DELIVERY_ROBOT_LIST
+          # value: '["${DELIVERY_ROBOT_02}", "${DELIVERY_ROBOT_01}"]'
+          value: '["${DELIVERY_ROBOT_01}", "${DELIVERY_ROBOT_02}"]'
+        - name: ROBOT_UI_SERVICEPATH
+          value: "${ROBOT_UI_SERVICEPATH}"
+        - name: ROBOT_UI_TYPE
+          value: "${ROBOT_UI_TYPE}"
+        - name: ID_TABLE
+          value: '{"${DELIVERY_ROBOT_01}":"${ROBOT_UI_01}","${DELIVERY_ROBOT_02}":"${ROBOT_UI_02}"}'
         - name: CORS_ORIGINS
           value: "*"
+        - name: TOKEN_SERVICEPATH
+          value: "${TOKEN_SERVICEPATH}"
+        - name: TOKEN_TYPE
+          value: "${TOKEN_TYPE}"
+        - name: MOVENEXT_WAIT_MSEC
+          value: "500"
+        - name: MOVENEXT_WAIT_MAX_NUM
+          value: "40"
+        - name: NOTIFICATION_THROTTLING_MSEC
+          value: "250"
+        - name: MONGODB_HOST
+          value: "mongodb-client"
+        - name: MONGODB_PORT
+          value: "27017"
+        - name: MONGODB_REPLICASET
+          value: "rs0"
+        - name: MONGODB_DB_NAME
+          value: "robot_controller"
+        - name: MONGODB_COLLECTION_NAME
+          value: "delivery_robot_lock"
         ports:
           - name: r-controller
             containerPort: 3000

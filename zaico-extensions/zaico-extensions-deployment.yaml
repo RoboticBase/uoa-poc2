@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zaico-extensions
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zaico-extensions
+  template:
+    metadata:
+      labels:
+        app: zaico-extensions
+    spec:
+      containers:
+      - name: zaico-extensions
+        image: ${REPOSITORY}/roboticbase/zaico-extensions:0.1.0
+        imagePullPolicy: Always
+        env:
+        - name: LOG_LEVEL
+          value: "INFO"
+        - name: LISTEN_PORT
+          value: "3000"
+        - name: ZAICO_TOKEN
+          value: "${ZAICO_TOKEN}"
+        - name: SHIPMENTAPI_ENDPOINT
+          value: "https://api.${DOMAIN}/controller/api/v1/shipments/"
+        - name: SHIPMENTAPI_TOKEN
+          value: "${SHIPMENTAPI_TOKEN}"
+        - name: DESTINATIONS
+          value: '${DESTINATIONS}'
+        ports:
+          - name: zaico
+            containerPort: 3000

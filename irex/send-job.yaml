@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: send-job
+  labels:
+    job: send-job
+spec:
+  template:
+    metadata:
+      labels:
+        job: send-job
+    spec:
+      containers:
+      - name: send-job
+        image: acruoapoc2.azurecr.io/roboticbase/irex-job:0.0.1
+        imagePullPolicy: Always
+      - name: rsnp
+        image: acruoapoc2.azurecr.io/roboticbase/rsnp_notifi:0.0.1
+        imagePullPolicy: Always
+        env:
+        - name: TZ
+          value: "Asia/Tokyo"
+        - name: robot_id
+          value: "megarover_2019"
+        - name: robot_pw
+          value: "s6GiC9KH"
+        - name: jar_port
+          value: "8000"
+        - name: pod_ip
+          value: "127.0.0.1"
+        ports:
+          - name: jar-port
+            containerPort: 8000
+      restartPolicy: Never
+  backoffLimit: 3

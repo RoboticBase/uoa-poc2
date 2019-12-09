@@ -1,0 +1,46 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: dummy-order-cronjob
+  labels:
+    job: dummy-order-cronjob
+spec:
+  schedule: "*/2 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            job: dummy-order-cronjob
+        spec:
+          containers:
+          - name: dummy-order-job
+            image: ${REPOSITORY}/roboticbase/dummy-order-job:0.0.1
+            imagePullPolicy: Always
+            env:
+            - name: MONGODB_HOST
+              value: "mongodb-client"
+            - name: MONGODB_PORT
+              value: "27017"
+            - name: MONGODB_REPLICASET
+              value: "rs0"
+            - name: MONGODB_DB_NAME
+              value: "robot_controller"
+            - name: CONTROLLER_ENDPOINT
+              value: "http://robot-controller:3000/api/v1/shipments/"
+            - name: ORION_ENDPOINT
+              value: "http://orion:1026/v2/entities/"
+            - name: FIWARE_SERVICE
+              value: "${FIWARE_SERVICE}"
+            - name: TOKEN_SERVICEPATH
+              value: "${TOKEN_SERVICEPATH}"
+            - name: DELIVERY_ROBOT_SERVICEPATH
+              value: "${DELIVERY_ROBOT_SERVICEPATH}"
+            - name: SKIP_RATE
+              value: "0.1"
+          restartPolicy: Never
+      backoffLimit: 3

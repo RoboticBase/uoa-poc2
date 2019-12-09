@@ -1,0 +1,55 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: send-cronjob-01
+  labels:
+    job: send-cronjob-01
+spec:
+  schedule: "1-59/2 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            job: send-cronjob-01
+        spec:
+          containers:
+          - name: send-job-01
+            image: ${REPOSITORY}/roboticbase/irex-job:0.0.1
+            imagePullPolicy: Always
+            env:
+            - name: ROBOT_ID
+              value: "${DELIVERY_ROBOT_01}"
+            - name: MONGODB_HOST
+              value: "mongodb-client"
+            - name: MONGODB_PORT
+              value: "27017"
+            - name: MONGODB_REPLICASET
+              value: "rs0"
+            - name: MONGODB_DB_NAME
+              value: "robot_controller"
+            - name: MESSAGE_LIMIT
+              value: "3"
+          - name: rsnp-01
+            image: ${REPOSITORY}/roboticbase/rsnp_notifi:0.0.1
+            imagePullPolicy: Always
+            env:
+            - name: TZ
+              value: "Asia/Tokyo"
+            - name: robot_id
+              value: "${DELIVERY_ROBOT_01_RSNP_ID}"
+            - name: robot_pw
+              value: "${DELIVERY_ROBOT_01_RSNP_PASSWORD}"
+            - name: jar_port
+              value: "8000"
+            - name: pod_ip
+              value: "127.0.0.1"
+            ports:
+              - name: jar-port-01
+                containerPort: 8000
+          restartPolicy: Never
+      backoffLimit: 3

@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ros-bridge-tb3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ros-bridge-tb3
+  template:
+    metadata:
+      labels:
+        app: ros-bridge-tb3
+    spec:
+      containers:
+      - name: ros-bridge-tb3
+        image: ${REPOSITORY}/roboticbase/irex-ros-bridge:0.0.1
+        imagePullPolicy: Always
+        env:
+        - name: MQTT_HOST
+          value: "rabbitmq-mqtt"
+        - name: MQTT_PORT
+          value: "1883"
+        - name: MQTT_USERNAME
+          value: "ros"
+        - name: MQTT_PASSWORD
+          value: "${MQTT__ros}"
+        - name: MQTT_USE_CA
+          value: "false"
+        - name: ENTITY_TYPE
+          value: "${DELIVERY_ROBOT_TYPE}"
+        - name: ENTITY_ID
+          value: "${DELIVERY_ROBOT_01}"
+        - name: CMD_NAME
+          value: "send_cmd"
+        - name: EMG_NAME
+          value: "send_emg"
+        - name: ROBOT_NAME
+          value: "turtlebot_01"
+        - name: NODE_SUFFIX
+          value: "01"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ros-bridge-mr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ros-bridge-mr
+  template:
+    metadata:
+      labels:
+        app: ros-bridge-mr
+    spec:
+      containers:
+      - name: ros-bridge-mr
+        image: ${REPOSITORY}/roboticbase/irex-ros-bridge:0.0.1
+        imagePullPolicy: Always
+        env:
+        - name: MQTT_HOST
+          value: "rabbitmq-mqtt"
+        - name: MQTT_PORT
+          value: "1883"
+        - name: MQTT_USERNAME
+          value: "ros"
+        - name: MQTT_PASSWORD
+          value: "${MQTT__ros}"
+        - name: MQTT_USE_CA
+          value: "false"
+        - name: ENTITY_TYPE
+          value: "${DELIVERY_ROBOT_TYPE}"
+        - name: ENTITY_ID
+          value: "${DELIVERY_ROBOT_02}"
+        - name: CMD_NAME
+          value: "send_cmd"
+        - name: EMG_NAME
+          value: "send_emg"
+        - name: ROBOT_NAME
+          value: "megarover_01"
+        - name: NODE_SUFFIX
+          value: "02"

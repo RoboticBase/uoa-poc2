@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: zaico-extensions
-        image: ${REPOSITORY}/roboticbase/zaico-extensions:0.1.0
+        image: roboticbase/zaico-extensions:0.1.0
         imagePullPolicy: Always
         env:
         - name: LOG_LEVEL

@@ -42,10 +42,12 @@ We and University of Aizu have been performed an unmaned delivery experiment on 
 Please see below movies:
 
 * short version (4min 5sec)
-[![short version](https://img.youtube.com/vi/R09vPSEbg1g/0.jpg)](https://www.youtube.com/watch?v=R09vPSEbg1g)
+
+  [![short version](https://img.youtube.com/vi/R09vPSEbg1g/0.jpg)](https://www.youtube.com/watch?v=R09vPSEbg1g)
 
 * long version (10min 33sec)
-[![long version](https://img.youtube.com/vi/pR10cp93KX4/0.jpg)](https://www.youtube.com/watch?v=pR10cp93KX4)
+
+  [![long version](https://img.youtube.com/vi/pR10cp93KX4/0.jpg)](https://www.youtube.com/watch?v=pR10cp93KX4)
 
 ## Requirements
 

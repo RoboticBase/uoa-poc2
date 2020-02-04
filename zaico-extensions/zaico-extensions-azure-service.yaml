@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zaico-extensions
+  labels:
+    app: zaico-extensions
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  zaico-mapping
+      prefix: /
+      host: "^zaico\\..+$"
+      host_regex: true
+      service: http://zaico-extensions:3000
+spec:
+  type: ClusterIP
+  selector:
+    app: zaico-extensions
+  ports:
+  - name: zaico
+    port: 3000
+    targetPort: 3000
